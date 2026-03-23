@@ -3,919 +3,486 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>1984 — Presentazione</title>
+<title>1984 — Diapo TV</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=Share+Tech+Mono&display=swap');
-
-:root {
-  --ink:    #1a1a2e;
-  --ink2:   #2d2d4e;
-  --red:    #e63946;
-  --red2:   #ff6b6b;
-  --gold:   #f4a261;
-  --blue:   #457b9d;
-  --teal:   #2a9d8f;
-  --cream:  #f8f4ef;
-  --white:  #ffffff;
-  --grey:   #8d99ae;
-  --light:  #edf2f4;
-}
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Bebas+Neue&family=Share+Tech+Mono&display=swap');
 
 * { margin:0; padding:0; box-sizing:border-box; }
 
-body {
-  background: var(--cream);
-  font-family: 'DM Sans', sans-serif;
-  height: 100vh; width: 100vw;
-  overflow: hidden;
+html, body {
+  width:100%; height:100%;
+  overflow:hidden;
+  background:#fff;
+  font-family:'Montserrat',sans-serif;
 }
 
-/* ═══════════════════════
-   SLIDE SYSTEM
-═══════════════════════ */
-.deck { position:relative; width:100vw; height:100vh; }
+/* ── DECK fills the whole screen ── */
+.deck {
+  position:fixed; inset:0;
+}
 
 .slide {
-  position: absolute; inset: 0;
-  opacity: 0; pointer-events: none;
-  transition: opacity .7s ease;
+  position:absolute; inset:0;
+  display:flex; flex-direction:column;
+  justify-content:center; align-items:center;
+  opacity:0; pointer-events:none;
+  transition:opacity .6s ease;
+  overflow:hidden;
 }
 .slide.active { opacity:1; pointer-events:all; }
 
-/* ── staggered enter ── */
-.slide.active .e1 { animation: fadeUp .6s cubic-bezier(.22,1,.36,1) .05s both; }
-.slide.active .e2 { animation: fadeUp .6s cubic-bezier(.22,1,.36,1) .18s both; }
-.slide.active .e3 { animation: fadeUp .6s cubic-bezier(.22,1,.36,1) .32s both; }
-.slide.active .e4 { animation: fadeUp .6s cubic-bezier(.22,1,.36,1) .46s both; }
-.slide.active .e5 { animation: fadeUp .6s cubic-bezier(.22,1,.36,1) .60s both; }
-@keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:none} }
+/* ── ENTER ── */
+.slide.active .a1 { animation: up .6s cubic-bezier(.22,1,.36,1) .05s both; }
+.slide.active .a2 { animation: up .6s cubic-bezier(.22,1,.36,1) .20s both; }
+.slide.active .a3 { animation: up .6s cubic-bezier(.22,1,.36,1) .35s both; }
+.slide.active .a4 { animation: up .6s cubic-bezier(.22,1,.36,1) .50s both; }
+.slide.active .a5 { animation: up .6s cubic-bezier(.22,1,.36,1) .65s both; }
+@keyframes up { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:none} }
 
-.slide.active .eLeft { animation: fadeLeft .7s cubic-bezier(.22,1,.36,1) .1s both; }
-@keyframes fadeLeft { from{opacity:0;transform:translateX(-40px)} to{opacity:1;transform:none} }
-.slide.active .eRight { animation: fadeRight .7s cubic-bezier(.22,1,.36,1) .25s both; }
-@keyframes fadeRight { from{opacity:0;transform:translateX(40px)} to{opacity:1;transform:none} }
-
-/* ═══════════════════════
-   SHARED ELEMENTS
-═══════════════════════ */
-.slide-num {
-  position: absolute; top: 28px; right: 36px;
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 11px; letter-spacing: 4px;
-  color: var(--grey); opacity: .6;
+/* ── SHARED ── */
+.lbl {
+  font-family:'Share Tech Mono',monospace;
+  font-size:clamp(11px,1.3vw,16px);
+  letter-spacing:5px; color:#999;
+  text-transform:uppercase; margin-bottom:16px;
 }
 
-.section-chip {
-  display: inline-block;
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 10px; letter-spacing: 4px;
-  text-transform: uppercase;
-  padding: 5px 14px;
-  border-radius: 2px;
-  margin-bottom: 18px;
-}
-.chip-red  { background: rgba(230,57,70,.1);  color: var(--red); }
-.chip-blue { background: rgba(69,123,157,.1); color: var(--blue); }
-.chip-teal { background: rgba(42,157,143,.1); color: var(--teal); }
-.chip-gold { background: rgba(244,162,97,.15); color: var(--gold); }
-
-.big-title {
-  font-family: 'Playfair Display', serif;
-  font-weight: 900;
-  font-size: clamp(38px, 5.5vw, 66px);
-  color: var(--ink);
-  line-height: 1.1;
-}
-.big-title em { font-style:italic; color: var(--red); }
-
-.body-text {
-  font-size: clamp(14px, 1.6vw, 17px);
-  font-weight: 300;
-  color: var(--ink2);
-  line-height: 1.85;
-  opacity: .85;
-}
-.body-text strong { font-weight: 500; color: var(--ink); }
-
-.rule {
-  width: 52px; height: 3px;
-  background: var(--red);
-  border-radius: 2px;
-  margin: 16px 0 24px;
+.snum {
+  position:absolute; top:22px; right:28px;
+  font-family:'Share Tech Mono',monospace;
+  font-size:clamp(10px,1vw,13px); letter-spacing:4px; color:#bbb;
 }
 
-/* ═══════════════════════
+/* ============================================
    SLIDE 1 — TITOLO
-═══════════════════════ */
-#s1 {
-  display: flex;
-  background: var(--white);
-  overflow: hidden;
-}
+============================================ */
+#s1 { background:#fff; }
 
-.s1-left {
-  width: 55%;
-  display: flex; flex-direction: column;
-  justify-content: center;
-  padding: clamp(40px,6vw,90px);
-  position: relative; z-index:2;
-}
-.s1-right {
-  flex: 1;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Animated geometric background */
-.s1-geo {
-  position: absolute; inset: 0;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-}
-.s1-geo::before {
-  content:'';
+.s1-ghost {
   position:absolute; inset:0;
-  background: radial-gradient(ellipse 70% 70% at 60% 40%, rgba(230,57,70,.3) 0%, transparent 60%);
-  animation: geoGlow 5s ease-in-out infinite;
+  display:flex; align-items:center; justify-content:center;
+  font-weight:900; font-size:clamp(200px,38vw,520px);
+  color:rgba(0,0,0,.04); letter-spacing:-.05em;
+  user-select:none; pointer-events:none; white-space:nowrap;
+  animation:gPulse 5s ease-in-out infinite;
 }
-@keyframes geoGlow { 0%,100%{opacity:.6} 50%{opacity:1} }
+@keyframes gPulse { 0%,100%{opacity:.5} 50%{opacity:1} }
 
-/* Floating shapes */
-.shape {
-  position: absolute;
-  border: 1px solid rgba(255,255,255,.08);
-  animation: shapeFloat linear infinite;
-}
-.shape-1 { width:200px;height:200px; top:10%;left:20%; border-radius:50%; animation-duration:18s; }
-.shape-2 { width:120px;height:120px; bottom:20%;right:15%; animation-duration:13s; animation-delay:-5s; }
-.shape-3 { width:80px;height:80px; top:50%;left:50%; animation-duration:10s; animation-delay:-8s; }
-@keyframes shapeFloat {
-  0%{transform:rotate(0) translateY(0)}
-  50%{transform:rotate(180deg) translateY(-20px)}
-  100%{transform:rotate(360deg) translateY(0)}
+.s1-content {
+  text-align:center; position:relative; z-index:2;
+  display:flex; flex-direction:column; align-items:center; gap:18px;
 }
 
-/* Big eye in center of right panel */
-.s1-eye-wrap {
-  position:absolute; top:50%; left:50%;
-  transform:translate(-50%,-50%);
-  width: clamp(180px,22vw,260px);
-  filter: drop-shadow(0 0 40px rgba(230,57,70,.5));
-  animation: eyeFloat 7s ease-in-out infinite;
+.s1-line {
+  width:0; height:3px; background:#d62828;
+  animation:lineGrow .8s ease .2s forwards;
 }
-@keyframes eyeFloat { 0%,100%{transform:translate(-50%,-52%)} 50%{transform:translate(-50%,-48%)} }
-.iris-spin { animation: iSpin 14s linear infinite; transform-origin:50% 50%; }
-@keyframes iSpin { to{transform:rotate(360deg)} }
+@keyframes lineGrow { to{width:clamp(80px,10vw,140px)} }
 
 .s1-year {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(100px,16vw,160px);
-  color: var(--ink);
-  line-height: .9;
-  letter-spacing: -2px;
-  animation: titleIn 1s cubic-bezier(.22,1,.36,1) .1s both;
-}
-@keyframes titleIn { from{opacity:0;letter-spacing:12px} to{opacity:1;letter-spacing:-2px} }
-
-.s1-year .glitch {
-  position: relative; display: inline-block;
-}
-.s1-year .glitch::before,
-.s1-year .glitch::after {
-  content: '1984';
-  position:absolute; top:0; left:0;
-  animation: glitchAnim 7s infinite;
-}
-.s1-year .glitch::before { color:rgba(230,57,70,.4); clip-path:polygon(0 20%,100% 20%,100% 45%,0 45%); }
-.s1-year .glitch::after  { color:rgba(69,123,157,.3); clip-path:polygon(0 65%,100% 65%,100% 80%,0 80%); }
-@keyframes glitchAnim {
-  0%,90%,100%{transform:none;opacity:0}
-  91%{transform:translateX(-3px);opacity:1}
-  92%{transform:translateX(3px);opacity:1}
-  93%{transform:none;opacity:0}
+  font-weight:900; font-size:clamp(100px,18vw,220px);
+  line-height:.9; letter-spacing:-.03em; color:#0d0d0d;
 }
 
-.s1-novel {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 11px; letter-spacing:5px;
-  color: var(--grey);
-  text-transform: uppercase;
-  margin-top: 8px;
+.s1-author {
+  font-weight:900; font-size:clamp(28px,5vw,64px);
+  letter-spacing:.08em; color:transparent;
+  -webkit-text-stroke:2px #0d0d0d;
 }
 
-.s1-meta {
-  display:flex; gap:14px; flex-wrap:wrap;
-  margin-top:24px;
-}
-.meta-pill {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 9px; letter-spacing:3px;
-  color: var(--grey);
-  border: 1px solid rgba(26,26,46,.12);
-  padding: 5px 12px; border-radius:2px;
-}
-
-/* ═══════════════════════
-   SLIDE 2 — TRAMA
-═══════════════════════ */
-#s2 {
-  background: var(--cream);
-  display:flex; align-items:center; justify-content:center;
-  overflow:hidden;
-}
-
-.s2-bg {
-  position:absolute; inset:0;
-  background:
-    radial-gradient(ellipse 50% 60% at 90% 50%, rgba(230,57,70,.06) 0%, transparent 60%),
-    radial-gradient(ellipse 40% 40% at 10% 50%, rgba(69,123,157,.05) 0%, transparent 60%);
-}
-
-.s2-inner {
-  width: min(900px,88vw);
-  display:flex; gap: clamp(40px,6vw,80px);
-  align-items:center;
-  position:relative; z-index:2;
-}
-
-.s2-visual {
-  flex: 0 0 auto;
-  width: clamp(200px, 26vw, 280px);
-}
-
-/* Animated poster */
-.poster {
-  width:100%; aspect-ratio:2/3;
-  background: var(--ink);
-  position:relative; overflow:hidden;
-  box-shadow: 0 24px 60px rgba(26,26,46,.25);
-  animation: posterRock 6s ease-in-out infinite;
-}
-@keyframes posterRock { 0%,100%{transform:rotate(-1deg)} 50%{transform:rotate(1deg)} }
-
-.poster-bg {
-  position:absolute; inset:0;
-  background: linear-gradient(160deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
-}
-.poster-glow {
-  position:absolute; inset:0;
-  background: radial-gradient(ellipse 80% 50% at 50% 40%, rgba(230,57,70,.25), transparent);
-  animation: geoGlow 4s ease-in-out infinite;
-}
-.poster-eye-wrap {
-  position:absolute; top:25%; left:50%;
-  transform:translateX(-50%);
-  width:65%;
-  filter: drop-shadow(0 0 20px rgba(230,57,70,.5));
-}
-.poster-title-txt {
-  position:absolute; bottom:14%; left:0; right:0;
-  text-align:center;
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(32px,5vw,52px);
-  color:#fff; letter-spacing:5px;
-}
-.poster-author {
-  position:absolute; bottom:8%; left:0; right:0;
-  text-align:center;
+.s1-tag {
   font-family:'Share Tech Mono',monospace;
-  font-size:8px; letter-spacing:3px;
-  color:rgba(255,255,255,.4);
+  font-size:clamp(10px,1.1vw,14px); letter-spacing:3px;
+  color:#888; border:1px solid #ddd;
+  padding:8px 20px; text-transform:uppercase;
 }
 
-.s2-text { flex:1; }
+/* ============================================
+   SLIDE 2 — INTRODUZIONE
+============================================ */
+#s2 { background:#f2f2f2; }
 
-/* Timeline dots */
-.timeline { display:flex; flex-direction:column; gap:20px; margin-top:8px; }
-.tl-item { display:flex; gap:16px; align-items:flex-start; }
-.tl-dot {
-  flex:0 0 10px; width:10px; height:10px;
-  border-radius:50%; background:var(--red);
-  margin-top:6px;
-  box-shadow:0 0 8px rgba(230,57,70,.5);
-  animation: dotPop .4s ease backwards;
+.s2-wrap {
+  display:grid; grid-template-columns:1fr 1fr;
+  width:86%; max-width:1200px; height:65%;
+  border:4px solid #0d0d0d;
 }
-.tl-dot:nth-child(1) { animation-delay:.5s }
-.tl-line-wrap { display:flex; flex-direction:column; gap:20px; }
-.tl-text {
-  font-size:clamp(13px,1.5vw,16px);
-  color:var(--ink2); line-height:1.7; font-weight:300;
-}
-.tl-text strong { color:var(--red); font-weight:500; }
-
-/* ═══════════════════════
-   SLIDE 3 — PERSONAGGI
-═══════════════════════ */
-#s3 {
-  background: var(--white);
+.s2-half {
   display:flex; flex-direction:column;
-  align-items:center; justify-content:center;
-  padding: 32px;
-  overflow:hidden;
+  justify-content:center; padding:40px 5%;
+}
+.s2-half:first-child { border-right:4px solid #0d0d0d; }
+
+.kw-lg {
+  font-weight:900; text-transform:uppercase;
+  font-size:clamp(38px,7vw,90px);
+  line-height:.95; letter-spacing:-.02em; color:#0d0d0d;
+}
+.kw-lg-red { color:#d62828; }
+
+/* ============================================
+   SLIDE 3 — TRAMA
+============================================ */
+#s3 { background:#fff; }
+
+.s3-wrap {
+  display:flex; flex-direction:column;
+  align-items:flex-start; gap:4px;
+  padding-left:clamp(28px,5vw,64px);
+  border-left:6px solid #0d0d0d;
+  width:min(1100px,88vw);
 }
 
-.s3-bg {
-  position:absolute; inset:0;
-  background:
-    radial-gradient(ellipse 40% 40% at 0% 100%, rgba(244,162,97,.07) 0%, transparent 60%),
-    radial-gradient(ellipse 40% 40% at 100% 0%, rgba(42,157,143,.06) 0%, transparent 60%);
+.kw-xl   { font-weight:900; text-transform:uppercase; font-size:clamp(60px,11vw,140px); line-height:.92; letter-spacing:-.03em; color:#0d0d0d; }
+.kw-xl-o { font-weight:900; text-transform:uppercase; font-size:clamp(44px,8.5vw,108px); line-height:.92; letter-spacing:-.03em; color:transparent; -webkit-text-stroke:3px #0d0d0d; }
+.kw-xl-r { font-weight:900; text-transform:uppercase; font-size:clamp(60px,11vw,140px); line-height:.92; letter-spacing:-.03em; color:#d62828; }
+.kw-md   { font-weight:900; text-transform:uppercase; font-size:clamp(40px,7vw,88px);  line-height:.92; letter-spacing:-.02em; color:#0d0d0d; }
+
+/* ============================================
+   SLIDE 4 — PERSONAGGI
+============================================ */
+#s4 { background:#0d0d0d; }
+
+.s4-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  grid-template-rows:1fr 1fr;
+  width:100%; height:100%;
 }
-
-.s3-head { text-align:center; margin-bottom:32px; position:relative; z-index:2; }
-
-.char-grid {
-  display:grid;
-  grid-template-columns:repeat(4, 1fr);
-  gap: clamp(12px,2vw,20px);
-  width:100%; max-width:1100px;
-  position:relative; z-index:2;
+.pb {
+  display:flex; flex-direction:column;
+  justify-content:center; align-items:center;
+  border:1px solid rgba(255,255,255,.07);
+  gap:10px; position:relative;
 }
-
-.char-card {
-  background: var(--cream);
-  border-radius: 4px;
-  padding: clamp(16px,2vw,24px) clamp(14px,1.8vw,20px);
-  position:relative; overflow:hidden;
-  transition: transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s;
-  cursor:default;
-  animation: cardIn .6s ease backwards;
-}
-.char-card:nth-child(2){ animation-delay:.1s }
-.char-card:nth-child(3){ animation-delay:.2s }
-.char-card:nth-child(4){ animation-delay:.3s }
-@keyframes cardIn { from{opacity:0;transform:translateY(24px) scale(.97)} to{opacity:1;transform:none} }
-
-.char-card::before {
-  content:'';
-  position:absolute; top:0; left:0; right:0;
-  height:3px;
-  background: var(--card-color, var(--red));
-  transform:scaleX(0); transform-origin:left;
-  transition:transform .4s ease;
-}
-.char-card:hover { transform:translateY(-6px); box-shadow:0 20px 50px rgba(26,26,46,.12); }
-.char-card:hover::before { transform:scaleX(1); }
-
-.char-card.c-red   { --card-color: var(--red); }
-.char-card.c-blue  { --card-color: var(--blue); }
-.char-card.c-gold  { --card-color: var(--gold); }
-.char-card.c-teal  { --card-color: var(--teal); }
-
-.card-num {
+.pb-label {
   font-family:'Share Tech Mono',monospace;
-  font-size:9px; letter-spacing:4px;
-  color: var(--card-color, var(--red));
-  opacity:.5; margin-bottom:14px;
+  font-size:clamp(9px,.9vw,12px); letter-spacing:4px;
+  text-transform:uppercase;
 }
-
-.card-avatar {
-  width:56px;height:56px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  margin:0 auto 14px;
-  background: rgba(255,255,255,.7);
-  box-shadow:0 4px 16px rgba(0,0,0,.06);
+.pb-line { width:32px; height:3px; }
+.pb-name {
+  font-weight:900; text-transform:uppercase;
+  text-align:center; line-height:.95; letter-spacing:-.02em;
 }
-.card-avatar svg { width:30px; }
-
-.card-name {
-  font-family:'Playfair Display',serif;
-  font-weight:700;
-  font-size:clamp(16px,1.8vw,20px);
-  color:var(--ink); text-align:center;
-  margin-bottom:4px;
-}
-.card-role {
+.pb-num {
+  position:absolute; bottom:14px; right:18px;
   font-family:'Share Tech Mono',monospace;
-  font-size:8px;letter-spacing:3px;
-  color:var(--card-color, var(--red));
-  text-align:center; margin-bottom:12px; opacity:.8;
-}
-.card-desc {
-  font-size:clamp(11px,1.2vw,13px);
-  font-weight:300; color:var(--ink2);
-  line-height:1.7; text-align:center;
+  font-size:clamp(9px,.8vw,11px); letter-spacing:3px; opacity:.15;
 }
 
-/* ═══════════════════════
-   SLIDE 4 — OPINIONE
-═══════════════════════ */
-#s4 {
-  background: var(--cream);
-  display:flex; align-items:center; justify-content:center;
-  overflow:hidden;
+.pb1 .pb-label { color:rgba(255,255,255,.35); }
+.pb1 .pb-name  { color:#fff; font-size:clamp(32px,5vw,64px); }
+.pb1 .pb-line  { background:#fff; }
+.pb1 .pb-num   { color:#fff; }
+
+.pb2 .pb-label { color:rgba(214,40,40,.7); }
+.pb2 .pb-name  { color:#d62828; font-size:clamp(52px,9vw,110px); }
+.pb2 .pb-line  { background:#d62828; }
+.pb2 .pb-num   { color:#d62828; }
+
+.pb3 .pb-label { color:rgba(255,255,255,.25); }
+.pb3 .pb-name  { color:rgba(255,255,255,.55); font-size:clamp(26px,4vw,52px); }
+.pb3 .pb-line  { background:rgba(255,255,255,.25); }
+.pb3 .pb-num   { color:#fff; }
+
+.pb4 .pb-label { color:rgba(255,255,255,.3); }
+.pb4 .pb-name  { color:rgba(255,255,255,.88); font-size:clamp(46px,8vw,100px); }
+.pb4 .pb-line  { background:rgba(255,255,255,.2); }
+.pb4 .pb-num   { color:#fff; }
+
+/* ============================================
+   SLIDE 5 — OPINIONE
+============================================ */
+#s5 { background:#fff; }
+
+.s5-wrap {
+  display:flex; flex-direction:column;
+  align-items:center; text-align:center;
+  width:80%; max-width:1000px; gap:16px;
+}
+.s5-score { display:flex; align-items:baseline; gap:20px; }
+.s5-num {
+  font-weight:900; font-size:clamp(100px,20vw,240px);
+  line-height:.85; color:#0d0d0d;
+  animation:scaleIn .8s cubic-bezier(.22,1,.36,1) .4s both;
+}
+@keyframes scaleIn { from{opacity:0;transform:scale(.55)} to{opacity:1;transform:none} }
+.s5-denom { font-weight:900; font-size:clamp(32px,5vw,64px); color:#bbb; }
+.s5-line  { width:80%; height:4px; background:#0d0d0d; margin:4px 0; }
+.s5-tags  { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
+.s5-tag {
+  font-family:'Share Tech Mono',monospace;
+  font-size:clamp(9px,1vw,13px); letter-spacing:3px;
+  padding:7px 16px; border:2px solid #0d0d0d;
+  text-transform:uppercase; font-weight:900; color:#0d0d0d;
 }
 
-.s4-bg {
-  position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse 50% 60% at 100% 100%, rgba(230,57,70,.07) 0%, transparent 60%),
-    radial-gradient(ellipse 40% 40% at 0% 0%, rgba(69,123,157,.05) 0%, transparent 60%);
+/* ============================================
+   CITATIONS — S6 S7 S8
+============================================ */
+#s6 { background:#0d0d0d; }
+#s7 { background:#fff; }
+#s8 { background:#0d0d0d; }
+
+.cit-wrap {
+  display:flex; flex-direction:column;
+  align-items:center; text-align:center;
+  width:80%; max-width:1000px; gap:16px;
 }
 
-.s4-inner {
-  width:min(950px,90vw);
-  display:flex; gap:clamp(40px,6vw,80px);
-  align-items:center; position:relative;z-index:2;
-}
-
-.s4-score-col {
-  flex:0 0 auto; text-align:center;
-  display:flex;flex-direction:column;align-items:center;gap:16px;
-}
-
-.score-ring {
-  position:relative; width:160px;height:160px;
-}
-.score-svg { width:160px;height:160px;transform:rotate(-90deg); }
-.score-track { fill:none;stroke:#e8e8e8;stroke-width:8; }
-.score-fill  {
-  fill:none;stroke:var(--red);stroke-width:8;stroke-linecap:round;
-  stroke-dasharray:440; stroke-dashoffset:66; /* 85% */
-  filter:drop-shadow(0 0 8px rgba(230,57,70,.4));
-  animation:scoreIn 1.4s cubic-bezier(.22,1,.36,1) .5s both;
-}
-@keyframes scoreIn { from{stroke-dashoffset:440} to{stroke-dashoffset:66} }
-
-.score-num {
-  position:absolute;inset:0;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-}
-.score-big {
+.cit-mark {
   font-family:'Bebas Neue',sans-serif;
-  font-size:52px;color:var(--ink);line-height:1;
+  font-size:clamp(60px,12vw,140px); line-height:.55;
 }
-.score-sub {
+.dark .cit-mark  { color:rgba(255,255,255,.07); }
+.light .cit-mark { color:rgba(0,0,0,.05); }
+
+.cit-main {
+  font-weight:900; line-height:1.25;
+  letter-spacing:-.02em;
+  font-size:clamp(28px,4.5vw,58px);
+}
+.dark  .cit-main { color:#fff; }
+.light .cit-main { color:#0d0d0d; }
+
+.cit-em {
+  display:block;
+  font-weight:900; font-size:clamp(40px,7vw,88px);
+  line-height:1.1; letter-spacing:-.03em;
+  color:#d62828; margin-top:8px;
+}
+
+.cit-src {
   font-family:'Share Tech Mono',monospace;
-  font-size:9px;letter-spacing:3px;color:var(--grey);
+  font-size:clamp(10px,1.1vw,14px); letter-spacing:4px;
+  text-transform:uppercase; padding-top:16px;
+  border-top:1px solid; width:50%; text-align:center;
 }
+.dark  .cit-src { color:rgba(255,255,255,.3); border-color:rgba(255,255,255,.1); }
+.light .cit-src { color:#999; border-color:#ddd; }
 
-.stars { display:flex;gap:5px; }
-.star {
-  font-size:20px;
-  animation:starPop .4s ease backwards;
-}
-.star:nth-child(1){animation-delay:.5s}
-.star:nth-child(2){animation-delay:.6s}
-.star:nth-child(3){animation-delay:.7s}
-.star:nth-child(4){animation-delay:.8s}
-.star:nth-child(5){animation-delay:.9s}
-@keyframes starPop { from{transform:scale(0)rotate(-30deg);opacity:0} to{opacity:1;transform:none} }
-
-.verdict-btn {
-  background:var(--red);color:#fff;
-  font-family:'Bebas Neue',sans-serif;
-  font-size:13px;letter-spacing:3px;
-  padding:8px 22px;border:none;cursor:default;
-  border-radius:2px;
-  box-shadow:0 4px 16px rgba(230,57,70,.35);
-  animation:vpulse 3s ease-in-out infinite;
-}
-@keyframes vpulse { 0%,100%{box-shadow:0 4px 16px rgba(230,57,70,.35)} 50%{box-shadow:0 8px 28px rgba(230,57,70,.6)} }
-
-.s4-text { flex:1; }
-
-.opinion-quote {
-  font-family:'Playfair Display',serif;
-  font-style:italic; font-size:clamp(14px,1.8vw,20px);
-  color:var(--ink); line-height:1.9;
-  padding:20px 24px;
-  background:var(--white);
-  border-left:3px solid var(--red);
-  border-radius:0 4px 4px 0;
-  box-shadow:0 4px 20px rgba(26,26,46,.07);
-  margin-bottom:20px;
-}
-.opinion-quote em { color:var(--red); font-style:normal; font-weight:700; }
-
-.tags { display:flex;flex-wrap:wrap;gap:8px; }
-.tag {
-  font-family:'Share Tech Mono',monospace;
-  font-size:9px;letter-spacing:2px;text-transform:uppercase;
-  padding:5px 12px;border-radius:2px;
-}
-.t-r { background:rgba(230,57,70,.08);  color:var(--red); }
-.t-b { background:rgba(69,123,157,.08); color:var(--blue); }
-.t-g { background:rgba(244,162,97,.1);  color:var(--gold); }
-.t-t { background:rgba(42,157,143,.08); color:var(--teal); }
-
-/* ═══════════════════════
-   SLIDE 5 — FINE
-═══════════════════════ */
-#s5 {
-  background: var(--ink);
-  display:flex;align-items:center;justify-content:center;
-  overflow:hidden;
-}
-
-/* Particle canvas */
-#particles { position:absolute;inset:0;pointer-events:none; }
-.pt {
-  position:absolute;border-radius:50%;
-  animation:ptRise linear infinite;
-  opacity:0;
-}
-@keyframes ptRise {
-  0%{transform:translateY(100vh)translateX(0);opacity:0}
-  8%{opacity:.5} 90%{opacity:.15}
-  100%{transform:translateY(-10px)translateX(var(--dx));opacity:0}
-}
-
-.s5-inner { text-align:center;position:relative;z-index:2; }
-
-/* Animated concentric rings */
-.rings {
-  width:clamp(140px,16vw,200px);height:clamp(140px,16vw,200px);
-  margin:0 auto 36px; position:relative;
-  display:flex;align-items:center;justify-content:center;
-}
-.ring {
-  position:absolute;border-radius:50%;
-  border:1px solid rgba(255,255,255,.12);
-}
-.ring-1 { width:100%;height:100%; animation:rSpin 20s linear infinite; }
-.ring-2 { width:75%;height:75%;  animation:rSpin 14s linear infinite reverse; }
-.ring-3 { width:50%;height:50%;  animation:rSpin 9s  linear infinite; }
-@keyframes rSpin { to{transform:rotate(360deg)} }
-
-.rings-eye {
-  position:relative;z-index:2;
-  filter:drop-shadow(0 0 16px rgba(230,57,70,.6));
-  animation:eyeFloat 7s ease-in-out infinite;
-}
-
-.s5-title {
-  font-family:'Playfair Display',serif;
-  font-weight:900;font-style:italic;
-  font-size:clamp(24px,4vw,46px);
-  color:#fff;letter-spacing:1px;
-  margin-bottom:8px;
-}
-.s5-sub {
-  font-family:'Share Tech Mono',monospace;
-  font-size:9px;letter-spacing:4px;
-  color:rgba(255,255,255,.3);margin-bottom:32px;
-}
-.s5-quote {
-  font-family:'Playfair Display',serif;
-  font-style:italic;font-weight:400;
-  font-size:clamp(14px,1.9vw,19px);
-  color:rgba(255,255,255,.75);
-  max-width:500px;margin:0 auto;
-  border-left:2px solid rgba(230,57,70,.5);
-  padding-left:20px;text-align:left;
-  line-height:1.9;
-}
-.s5-quote cite {
-  display:block;margin-top:12px;
-  font-style:normal;font-size:9px;
-  font-family:'Share Tech Mono',monospace;
-  letter-spacing:3px;color:rgba(230,57,70,.6);
-}
-
-/* ═══════════════════════
-   NAVIGATION
-═══════════════════════ */
+/* ============================================
+   NAVIGATION — discrète
+============================================ */
 .nav {
-  position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+  position:fixed; bottom:20px; left:50%;
+  transform:translateX(-50%);
   z-index:500;
-  display:flex;align-items:center;gap:12px;
-  background:rgba(255,255,255,.9);
-  border:1px solid rgba(26,26,46,.1);
-  padding:10px 20px;
-  backdrop-filter:blur(16px);
-  border-radius:3px;
-  box-shadow:0 8px 32px rgba(26,26,46,.1);
+  display:flex; align-items:center; gap:12px;
+  padding:8px 18px; border-radius:3px;
+  backdrop-filter:blur(12px);
 }
-.nav-btn {
-  background:none;border:1px solid rgba(26,26,46,.15);
-  color:var(--ink);
-  font-family:'Bebas Neue',sans-serif;
-  font-size:18px;width:32px;height:32px;
-  line-height:32px;text-align:center;
-  cursor:pointer;border-radius:2px;
-  transition:all .2s;
-}
-.nav-btn:hover { background:var(--ink);color:#fff; }
-.dots { display:flex;gap:7px;align-items:center; }
-.dot {
-  width:6px;height:6px;border-radius:50%;
-  border:1px solid rgba(26,26,46,.25);
-  cursor:pointer;transition:all .3s;
-}
-.dot.on { background:var(--red);box-shadow:0 0 6px rgba(230,57,70,.5);border-color:var(--red);width:18px;border-radius:3px; }
-.ctr {
-  font-family:'Share Tech Mono',monospace;
-  font-size:9px;letter-spacing:3px;color:var(--grey);
-  min-width:40px;text-align:center;
-}
+.nav.on-light { background:rgba(255,255,255,.88); border:1px solid rgba(0,0,0,.12); }
+.nav.on-dark  { background:rgba(0,0,0,.75);       border:1px solid rgba(255,255,255,.1); }
 
-/* ═══════════════════════
-   CHRONOMÈTRE
-═══════════════════════ */
-.chrono {
-  position:fixed;bottom:24px;left:24px;
+.nb {
+  background:none; border:none;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:20px; width:28px; height:28px;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:opacity .2s;
+}
+.nb:hover { opacity:.6; }
+.nav.on-light .nb { color:#0d0d0d; }
+.nav.on-dark  .nb { color:#fff; }
+
+.ndots { display:flex; gap:7px; align-items:center; }
+.ndot {
+  width:6px; height:6px; border-radius:50%;
+  cursor:pointer; transition:all .25s;
+}
+.nav.on-light .ndot { border:1.5px solid rgba(0,0,0,.3); }
+.nav.on-dark  .ndot { border:1.5px solid rgba(255,255,255,.3); }
+.nav.on-light .ndot.on { background:#0d0d0d; width:18px; border-radius:2px; border-color:#0d0d0d; }
+.nav.on-dark  .ndot.on { background:#fff;     width:18px; border-radius:2px; border-color:#fff; }
+
+.nctr {
+  font-family:'Share Tech Mono',monospace;
+  font-size:9px; letter-spacing:3px; min-width:38px; text-align:center;
+}
+.nav.on-light .nctr { color:#aaa; }
+.nav.on-dark  .nctr { color:rgba(255,255,255,.3); }
+
+/* ── TIMER ── */
+.timer {
+  position:fixed; bottom:20px; right:24px;
   z-index:500;
-  background:rgba(255,255,255,.9);
-  border:1px solid rgba(26,26,46,.1);
-  padding:8px 16px;
-  backdrop-filter:blur(16px);
-  border-radius:3px;
-  box-shadow:0 8px 32px rgba(26,26,46,.1);
-  display:flex;align-items:center;gap:10px;
-}
-.chrono-lbl {
+  display:flex; align-items:center; gap:7px;
   font-family:'Share Tech Mono',monospace;
-  font-size:8px;letter-spacing:3px;
-  color:var(--grey);text-transform:uppercase;
+  font-size:clamp(10px,1vw,13px); letter-spacing:3px;
 }
-.chrono-time {
-  font-family:'Share Tech Mono',monospace;
-  font-size:16px;letter-spacing:2px;
-  color:var(--ink);font-weight:500;
-  min-width:70px;
+.timer.on-light { color:rgba(0,0,0,.28); }
+.timer.on-dark  { color:rgba(255,255,255,.22); }
+.tdot {
+  width:6px; height:6px; border-radius:50%;
+  animation:tdp 1.2s ease-in-out infinite;
 }
-.chrono-dot {
-  width:6px;height:6px;border-radius:50%;
-  background:var(--red);
-  animation:cdot 1s ease-in-out infinite;
-}
-@keyframes cdot { 0%,100%{opacity:1} 50%{opacity:.2} }
+.timer.on-light .tdot { background:rgba(0,0,0,.2); }
+.timer.on-dark  .tdot { background:rgba(255,255,255,.2); }
+@keyframes tdp { 0%,100%{opacity:1} 50%{opacity:.15} }
+
 </style>
 </head>
 <body>
 
 <div class="deck">
 
-  <!-- ══ S1 — TITOLO ══ -->
+  <!-- S1 TITOLO -->
   <div class="slide active" id="s1">
-    <div class="slide-num">01 / 05</div>
-
-    <div class="s1-left">
-      <div class="section-chip chip-red e1">Romanzo · Distopia · 1949</div>
-      <div class="s1-year e2"><span class="glitch">1984</span></div>
-      <div class="s1-novel e3">di George Orwell</div>
-      <div class="rule e4"></div>
-      <p class="body-text e4" style="max-width:420px;">
-        Un mondo senza libertà, dove il <strong>Grande Fratello</strong> osserva tutto e tutti. Un romanzo che ha cambiato la letteratura mondiale.
-      </p>
-      <div class="s1-meta e5">
-        <span class="meta-pill">Fantascienza</span>
-        <span class="meta-pill">Anticipazione</span>
-        <span class="meta-pill">George Orwell</span>
-        <span class="meta-pill">Classico</span>
-      </div>
+    <div class="s1-ghost">1984</div>
+    <div class="s1-content">
+      <div class="s1-line a1"></div>
+      <div class="s1-year a2">1984</div>
+      <div class="s1-author a3">George Orwell</div>
+      <div class="s1-tag a4">🎬 Film adattato al cinema &nbsp;·&nbsp; Regia Michael Radford &nbsp;·&nbsp; 1984</div>
     </div>
-
-    <div class="s1-right eRight">
-      <div class="s1-geo">
-        <div class="shape shape-1"></div>
-        <div class="shape shape-2"></div>
-        <div class="shape shape-3"></div>
-      </div>
-      <svg class="s1-eye-wrap" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <radialGradient id="ig1" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#e63946"/>
-            <stop offset="45%" stop-color="#6b1510"/>
-            <stop offset="100%" stop-color="#160304"/>
-          </radialGradient>
-          <filter id="gf1"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-        </defs>
-        <ellipse cx="150" cy="100" rx="142" ry="72" fill="#0a0715" stroke="rgba(230,57,70,.4)" stroke-width="1.5"/>
-        <circle cx="150" cy="100" r="52" fill="url(#ig1)" filter="url(#gf1)"/>
-        <g class="iris-spin" opacity=".2" stroke="#ff6b6b" stroke-width=".7" transform-origin="150 100">
-          <line x1="150" y1="48" x2="150" y2="152"/>
-          <line x1="105" y1="60" x2="195" y2="140"/>
-          <line x1="98"  y1="100" x2="202" y2="100"/>
-          <line x1="105" y1="140" x2="195" y2="60"/>
-        </g>
-        <circle cx="150" cy="100" r="22" fill="#080406"/>
-        <circle cx="143" cy="93" r="5" fill="rgba(255,255,255,.18)"/>
-        <path d="M10 82 Q78 18 150 36 Q222 18 290 82" fill="none" stroke="rgba(230,57,70,.4)" stroke-width="1.5"/>
-        <path d="M10 118 Q78 182 150 164 Q222 182 290 118" fill="none" stroke="rgba(230,57,70,.4)" stroke-width="1.5"/>
-      </svg>
-    </div>
+    <div class="snum">01 / 08</div>
   </div>
 
-  <!-- ══ S2 — TRAMA ══ -->
+  <!-- S2 INTRODUZIONE -->
   <div class="slide" id="s2">
-    <div class="s2-bg"></div>
-    <div class="slide-num">02 / 05</div>
-
-    <div class="s2-inner">
-      <div class="s2-visual eLeft">
-        <div class="poster">
-          <div class="poster-bg"></div>
-          <div class="poster-glow"></div>
-          <svg class="poster-eye-wrap" viewBox="0 0 260 180" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <radialGradient id="ig2" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#e63946"/>
-                <stop offset="50%" stop-color="#5a1012"/>
-                <stop offset="100%" stop-color="#120203"/>
-              </radialGradient>
-            </defs>
-            <ellipse cx="130" cy="90" rx="120" ry="62" fill="#080410" stroke="rgba(230,57,70,.35)" stroke-width="1.2"/>
-            <circle cx="130" cy="90" r="46" fill="url(#ig2)"/>
-            <circle cx="130" cy="90" r="19" fill="#060208"/>
-            <circle cx="123" cy="83" r="4" fill="rgba(255,255,255,.2)"/>
-            <path d="M12 72 Q68 14 130 30 Q192 14 248 72" fill="none" stroke="rgba(230,57,70,.4)" stroke-width="1.2"/>
-            <path d="M12 108 Q68 166 130 150 Q192 166 248 108" fill="none" stroke="rgba(230,57,70,.4)" stroke-width="1.2"/>
-          </svg>
-          <div class="poster-title-txt">1984</div>
-          <div class="poster-author">GEORGE ORWELL</div>
-        </div>
+    <div class="snum">02 / 08</div>
+    <div class="s2-wrap">
+      <div class="s2-half">
+        <div class="lbl a1">Il film</div>
+        <div class="kw-lg a2">STATO<br>TOTALITARIO</div>
       </div>
-
-      <div class="s2-text eRight">
-        <div class="section-chip chip-red e1">La Trama</div>
-        <h2 class="big-title e2">Riassunto</h2>
-        <div class="rule e2"></div>
-        <div class="timeline e3">
-          <div class="tl-item">
-            <div class="tl-dot"></div>
-            <p class="tl-text">Winston Smith vive in <strong>Oceania</strong>, uno Stato totalitario dove il Partito controlla tutto. Lavora al Ministero della Verità falsificando la storia.</p>
-          </div>
-          <div class="tl-item">
-            <div class="tl-dot"></div>
-            <p class="tl-text">Incontra <strong>Julia</strong> e i due si innamorano. Vivono una relazione segreta e cercano la libertà lontano dal sistema.</p>
-          </div>
-          <div class="tl-item">
-            <div class="tl-dot"></div>
-            <p class="tl-text">Traditi da <strong>O'Brien</strong>, vengono arrestati dalla Polizia del Pensiero. Winston è torturato e alla fine tradisce Julia, accettando il potere del Partito.</p>
-          </div>
-        </div>
+      <div class="s2-half">
+        <div class="lbl a3">Il messaggio</div>
+        <div class="kw-lg a4">LIBERTÀ<br><span class="kw-lg-red">&amp; POTERE</span></div>
       </div>
     </div>
   </div>
 
-  <!-- ══ S3 — PERSONAGGI ══ -->
+  <!-- S3 TRAMA -->
   <div class="slide" id="s3">
-    <div class="s3-bg"></div>
-    <div class="slide-num">03 / 05</div>
-
-    <div class="s3-head e1">
-      <div class="section-chip chip-blue">I Personaggi</div>
-      <h2 class="big-title">I Quattro <em>Protagonisti</em></h2>
-    </div>
-
-    <div class="char-grid">
-
-      <!-- Winston -->
-      <div class="char-card c-red">
-        <div class="card-num">01</div>
-        <div class="card-avatar">
-          <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="20" cy="14" r="8" fill="#1a1a2e" opacity=".7"/>
-            <path d="M6 36c0-7.7 6.3-14 14-14s14 6.3 14 14" fill="#1a1a2e" opacity=".6"/>
-          </svg>
-        </div>
-        <div class="card-name">Winston Smith</div>
-        <div class="card-role">Protagonista</div>
-        <div class="card-desc">Uomo semplice ma riflessivo. Lavora per il Partito ma sogna la libertà. Fragile di fronte alla forza del sistema.</div>
-      </div>
-
-      <!-- Julia -->
-      <div class="char-card c-teal">
-        <div class="card-num">02</div>
-        <div class="card-avatar">
-          <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="20" cy="13" r="8" fill="#1a1a2e" opacity=".7"/>
-            <path d="M6 36c0-7.7 6.3-14 14-14s14 6.3 14 14" fill="#1a1a2e" opacity=".6"/>
-            <path d="M14 8 Q20 4 26 8" fill="none" stroke="#2a9d8f" stroke-width="1.5"/>
-          </svg>
-        </div>
-        <div class="card-name">Julia</div>
-        <div class="card-role">La Ribelle</div>
-        <div class="card-desc">Giovane e coraggiosa. Ama Winston e vuole vivere senza regole. Non pensa alla politica, ma vuole essere libera.</div>
-      </div>
-
-      <!-- Grande Fratello -->
-      <div class="char-card c-gold">
-        <div class="card-num">03</div>
-        <div class="card-avatar">
-          <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-            <ellipse cx="20" cy="20" rx="14" ry="8" fill="none" stroke="#1a1a2e" stroke-width="1.2" opacity=".6"/>
-            <circle cx="20" cy="20" r="5" fill="#1a1a2e" opacity=".5"/>
-            <circle cx="20" cy="20" r="2.5" fill="#1a1a2e" opacity=".8"/>
-          </svg>
-        </div>
-        <div class="card-name">Il Grande Fratello</div>
-        <div class="card-role">Il Potere</div>
-        <div class="card-desc">Capo dello Stato. Rappresenta il controllo totale. Osserva ogni cittadino attraverso la paura e la sorveglianza.</div>
-      </div>
-
-      <!-- O'Brien -->
-      <div class="char-card c-blue">
-        <div class="card-num">04</div>
-        <div class="card-avatar">
-          <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="20" cy="14" r="8" fill="#1a1a2e" opacity=".7"/>
-            <path d="M6 36c0-7.7 6.3-14 14-14s14 6.3 14 14" fill="#1a1a2e" opacity=".6"/>
-            <path d="M28 10 L32 6 M12 10 L8 6" stroke="#457b9d" stroke-width="1.5"/>
-          </svg>
-        </div>
-        <div class="card-name">O'Brien</div>
-        <div class="card-role">Il Traditore</div>
-        <div class="card-desc">Alto funzionario del Partito. Finge di essere amico di Winston, ma lo inganna e lo fa arrestare. Figura del tradimento assoluto.</div>
-      </div>
-
+    <div class="snum">03 / 08</div>
+    <div class="s3-wrap">
+      <div class="lbl a1">La trama</div>
+      <div class="kw-xl a2">CONTROLLO</div>
+      <div class="kw-xl-o a3">RIBELLIONE</div>
+      <div class="kw-xl-r a4">TRADIMENTO</div>
+      <div class="kw-md a5">FINE</div>
     </div>
   </div>
 
-  <!-- ══ S4 — OPINIONE ══ -->
+  <!-- S4 PERSONAGGI -->
   <div class="slide" id="s4">
-    <div class="s4-bg"></div>
-    <div class="slide-num">04 / 05</div>
-
-    <div class="s4-inner">
-      <div class="s4-score-col eLeft">
-        <div class="score-ring">
-          <svg class="score-svg" viewBox="0 0 160 160">
-            <circle class="score-track" cx="80" cy="80" r="70"/>
-            <circle class="score-fill"  cx="80" cy="80" r="70"/>
-          </svg>
-          <div class="score-num">
-            <div class="score-big">9/10</div>
-            <div class="score-sub">voto</div>
-          </div>
-        </div>
-        <div class="stars">
-          <span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span>
-        </div>
-        <button class="verdict-btn">Consigliato</button>
+    <div class="snum" style="color:rgba(255,255,255,.2)">04 / 08</div>
+    <div class="s4-grid">
+      <div class="pb pb1 a1">
+        <div class="pb-label">Protagonista</div>
+        <div class="pb-line"></div>
+        <div class="pb-name">WINSTON<br>SMITH</div>
+        <div class="pb-num">01</div>
       </div>
-
-      <div class="s4-text eRight">
-        <div class="section-chip chip-red e1">Opinione Personale</div>
-        <h2 class="big-title e2">La mia <em>opinione</em></h2>
-        <div class="rule e2"></div>
-        <div class="opinion-quote e3">
-          Questo libro è molto <em>interessante e importante</em>. La storia è semplice ma ha un messaggio forte. Fa pensare alla libertà e al potere dello Stato. Il finale è molto triste perché Winston perde tutto.
-        </div>
-        <div class="tags e4">
-          <span class="tag t-r">Oppressivo</span>
-          <span class="tag t-b">Classico</span>
-          <span class="tag t-g">Profondo</span>
-          <span class="tag t-t">Essenziale</span>
-          <span class="tag t-r">Messaggio forte</span>
-          <span class="tag t-b">Da consigliare</span>
-        </div>
+      <div class="pb pb2 a2">
+        <div class="pb-label">La ribelle</div>
+        <div class="pb-line"></div>
+        <div class="pb-name">JULIA</div>
+        <div class="pb-num">02</div>
+      </div>
+      <div class="pb pb3 a3">
+        <div class="pb-label">Il potere</div>
+        <div class="pb-line"></div>
+        <div class="pb-name">IL GRANDE<br>FRATELLO</div>
+        <div class="pb-num">03</div>
+      </div>
+      <div class="pb pb4 a4">
+        <div class="pb-label">Il traditore</div>
+        <div class="pb-line"></div>
+        <div class="pb-name">O'BRIEN</div>
+        <div class="pb-num">04</div>
       </div>
     </div>
   </div>
 
-  <!-- ══ S5 — FINE ══ -->
+  <!-- S5 OPINIONE -->
   <div class="slide" id="s5">
-    <div id="particles"></div>
-    <div class="slide-num" style="color:rgba(255,255,255,.3)">05 / 05</div>
-
-    <div class="s5-inner">
-      <div class="rings e1">
-        <div class="ring ring-1"></div>
-        <div class="ring ring-2"></div>
-        <div class="ring ring-3"></div>
-        <svg class="rings-eye" viewBox="0 0 80 56" width="70" xmlns="http://www.w3.org/2000/svg">
-          <ellipse cx="40" cy="28" rx="36" ry="22" fill="none" stroke="rgba(230,57,70,.6)" stroke-width="1.2"/>
-          <circle cx="40" cy="28" r="12" fill="none" stroke="rgba(230,57,70,.5)" stroke-width="1"/>
-          <circle cx="40" cy="28" r="5" fill="rgba(230,57,70,.7)"/>
-        </svg>
+    <div class="snum">05 / 08</div>
+    <div class="s5-wrap">
+      <div class="lbl a1">La mia opinione</div>
+      <div class="s5-score">
+        <div class="s5-num">9</div>
+        <div class="s5-denom">/10</div>
       </div>
-      <div class="s5-title e2">Il Grande Fratello Ti Guarda</div>
-      <div class="s5-sub e3">George Orwell · 1984 · Romanzo Distopico</div>
-      <div class="s5-quote e4">
-        La libertà è la libertà di dire che due più due fa quattro. Da questo dipende tutto il resto.
-        <cite>— Winston Smith</cite>
+      <div class="s5-line a3"></div>
+      <div class="s5-tags a4">
+        <span class="s5-tag">Opprimente</span>
+        <span class="s5-tag">Potente</span>
+        <span class="s5-tag">Essenziale</span>
+        <span class="s5-tag">Da vedere</span>
       </div>
     </div>
   </div>
 
+  <!-- S6 CITAZIONE 1 — dark -->
+  <div class="slide dark" id="s6">
+    <div class="snum" style="color:rgba(255,255,255,.2)">06 / 08</div>
+    <div class="cit-wrap">
+      <div class="cit-mark a1">"</div>
+      <div class="cit-main a2">
+        La libertà è la libertà di dire che
+        <span class="cit-em">due più due fa quattro.</span>
+      </div>
+      <div class="cit-src a3">— Winston Smith · 1984</div>
+    </div>
+  </div>
+
+  <!-- S7 CITAZIONE 2 — light -->
+  <div class="slide light" id="s7">
+    <div class="snum">07 / 08</div>
+    <div class="cit-wrap">
+      <div class="cit-mark a1">"</div>
+      <div class="cit-main a2">
+        Chi controlla il passato
+        <span class="cit-em">controlla il futuro.</span>
+      </div>
+      <div class="cit-src a3">— Il Partito · George Orwell · 1984</div>
+    </div>
+  </div>
+
+  <!-- S8 CITAZIONE 3 — dark -->
+  <div class="slide dark" id="s8">
+    <div class="snum" style="color:rgba(255,255,255,.2)">08 / 08</div>
+    <div class="cit-wrap">
+      <div class="cit-mark a1">"</div>
+      <div class="cit-main a2">
+        Il Grande Fratello
+        <span class="cit-em">ti guarda.</span>
+      </div>
+      <div class="cit-src a3">— George Orwell · 1984</div>
+    </div>
+  </div>
+
+</div><!-- /deck -->
+
+<!-- NAV -->
+<div class="nav on-light" id="nav">
+  <button class="nb" id="prev">‹</button>
+  <div class="ndots" id="dots"></div>
+  <span class="nctr" id="ctr">01 / 08</span>
+  <button class="nb" id="next">›</button>
 </div>
 
-<!-- NAVIGATION -->
-<div class="nav">
-  <button class="nav-btn" id="prev">‹</button>
-  <div class="dots" id="dots"></div>
-  <div class="ctr" id="ctr">01 / 05</div>
-  <button class="nav-btn" id="next">›</button>
-</div>
-
-<!-- CHRONOMÈTRE -->
-<div class="chrono" id="chrono">
-  <div class="chrono-dot" id="chronoDot"></div>
-  <span class="chrono-lbl">Tempo</span>
-  <span class="chrono-time" id="chronoTime">00:00</span>
+<!-- TIMER -->
+<div class="timer on-light" id="tmr">
+  <div class="tdot"></div>
+  <span id="tdisp">00:00</span>
 </div>
 
 <script>
-  // ── SLIDES ──
-  const slides = document.querySelectorAll('.slide');
-  const total  = slides.length;
+  const slides    = document.querySelectorAll('.slide');
+  const navEl     = document.getElementById('nav');
+  const tmrEl     = document.getElementById('tmr');
+  const dotsEl    = document.getElementById('dots');
+  const total     = slides.length;
+  const darkSet   = new Set([3, 5, 7]); // 0-indexed: s4, s6, s8
   let cur = 0;
 
-  const dotsEl = document.getElementById('dots');
   slides.forEach((_,i) => {
     const d = document.createElement('div');
-    d.className = 'dot' + (i===0?' on':'');
+    d.className = 'ndot' + (i===0 ? ' on' : '');
     d.onclick = () => go(i);
     dotsEl.appendChild(d);
   });
@@ -924,9 +491,11 @@ body {
     slides[cur].classList.remove('active');
     cur = ((n % total) + total) % total;
     slides[cur].classList.add('active');
-    document.querySelectorAll('.dot').forEach((d,i) => d.classList.toggle('on', i===cur));
-    document.getElementById('ctr').textContent =
-      String(cur+1).padStart(2,'0') + ' / ' + String(total).padStart(2,'0');
+    document.querySelectorAll('.ndot').forEach((d,i) => d.classList.toggle('on', i===cur));
+    document.getElementById('ctr').textContent = String(cur+1).padStart(2,'0') + ' / 08';
+    const dark = darkSet.has(cur);
+    navEl.className = 'nav ' + (dark ? 'on-dark' : 'on-light');
+    tmrEl.className = 'timer ' + (dark ? 'on-dark' : 'on-light');
   }
 
   document.getElementById('prev').onclick = () => go(cur-1);
@@ -936,38 +505,12 @@ body {
     if (e.key==='ArrowLeft' ||e.key==='ArrowUp')   go(cur-1);
   });
 
-  // ── PARTICLES (slide 5) ──
-  const pC = document.getElementById('particles');
-  for (let i=0;i<40;i++) {
-    const p = document.createElement('div');
-    p.className = 'pt';
-    const x  = Math.random()*100;
-    const dx = (Math.random()-.5)*180;
-    const sz = 1.5 + Math.random()*3;
-    const dur = 7 + Math.random()*10;
-    const del = Math.random()*14;
-    p.style.cssText = `left:${x}%;width:${sz}px;height:${sz}px;background:rgba(230,57,70,${.4+Math.random()*.4});--dx:${dx}px;animation-duration:${dur}s;animation-delay:-${del}s`;
-    pC.appendChild(p);
-  }
-
-  // ── CHRONOMÈTRE ──
-  let elapsed = 0;
-  let chronoRunning = true;
-  const chronoEl   = document.getElementById('chronoTime');
-  const chronoDot  = document.getElementById('chronoDot');
-
-  // Toggle on click
-  document.getElementById('chrono').addEventListener('click', () => {
-    chronoRunning = !chronoRunning;
-    chronoDot.style.animationPlayState = chronoRunning ? 'running' : 'paused';
-  });
-
+  // Timer
+  let sec = 0;
+  const tdisp = document.getElementById('tdisp');
   setInterval(() => {
-    if (!chronoRunning) return;
-    elapsed++;
-    const m = String(Math.floor(elapsed / 60)).padStart(2,'0');
-    const s = String(elapsed % 60).padStart(2,'0');
-    chronoEl.textContent = m + ':' + s;
+    sec++;
+    tdisp.textContent = String(Math.floor(sec/60)).padStart(2,'0') + ':' + String(sec%60).padStart(2,'0');
   }, 1000);
 </script>
 </body>
